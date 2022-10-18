@@ -2,12 +2,10 @@ import { copyTrack, getContents, getTrack, shuffleArray } from "./utils";
 import express from 'express';
 import config from "./config";
 import { ITrack } from "./music";
-import path from "path";
 import nocache from 'nocache';
 import cors from 'cors';
 
 const folderURI = 'D:\\torrents\\auto';
-// const folderURI = 'D:\\music\\fresh\\trip';
 let tracks: Array<string> = [];
 let currentTrack: ITrack | null = null;
 let count = 0;
@@ -46,11 +44,6 @@ app.listen(config.APP_PORT);
 
 app.get('/', (req, res) => {
   res.send('Bob ross');
-});
-
-app.get('/privet', (req, res) => {
-  console.log('request body:', req.body);
-  res.send(`Bolshe ne bob ross. You sent: ${req.body}`);
 });
 
 app.get('/current', (req, res) => {
