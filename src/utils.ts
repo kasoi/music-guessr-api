@@ -13,7 +13,7 @@ export const getContents = async (uri: string): Promise<IFilesDirResult> => {
   const dirs = contents.filter(dirent => dirent.isDirectory()).map(dirent => Path.resolve(uri, dirent.name));
   const tracks = contents.filter(dirent => {
     const extName = Path.extname(dirent.name);
-    return dirent.isFile() && (extName === '.mp3' || extName === '.flac')
+    return dirent.isFile() && (extName.toLowerCase() === '.mp3' || extName.toLocaleLowerCase() === '.flac')
   }).map(dirent => Path.resolve(uri, dirent.name));
 
   const result = {
@@ -35,7 +35,8 @@ export const getTrack = async (uri: string): Promise<ITrack> => {
   }
   const filename = Path.basename(uri).split(' — ').join(' - ');
   const divided = filename.split(' - ');
-  const title = (divided[1] || divided[0]).slice(0, -4);
+  const title = (filename).slice(0, -4);
+  // const title = (divided[1] || divided[0]).slice(0, -4);
   
   return {
     duration: result?.format?.duration || 10,
